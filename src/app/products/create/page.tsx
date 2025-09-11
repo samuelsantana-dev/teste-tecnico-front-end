@@ -11,7 +11,7 @@ export default function CreateProduct() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [thumbnail , setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -71,14 +71,14 @@ export default function CreateProduct() {
         onChange={(e) => setDescription(e.target.value)}
         />
 
-        <InputText 
-        label="Descrição do thumbnail"
-        placeholder="Digite a thumbnail"
-        type="description"
-        size="md"
-        value={thumbnail}
-        onChange={(e) => setThumbnail(e.target.value)}
-        />
+        <label htmlFor="thumbnail">Clique aqui para enviar o arquivo</label>
+        <input
+        className="mb-4 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+        type="file"
+        id="thumbnail"
+        accept="image/*"
+        onChange={(e) => setThumbnail(e.target.files ? e.target.files[0] : null)}
+      />
 
         <button
           type="submit"

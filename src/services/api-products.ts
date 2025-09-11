@@ -1,5 +1,3 @@
-import { ur } from "zod/v4/locales";
-
 const url = "https://api-teste-front-production.up.railway.app";
 const token = localStorage.getItem("token");
 console.log("🚀 ~ token:", token)
@@ -28,13 +26,30 @@ export async function deleteProductApi(id: string) {
     )
 }
 
-export async function createProductApi(title: string, description: string, thumbnail: string) {
-    await fetch(`${url}/products`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({ title, description, thumbnail })
-    })
+export async function createProductApi(
+  title: string,
+  description: string,
+  thumbnail: File | null
+) {
+  if (!thumbnail) throw new Error("Selecione uma imagem antes de enviar");
+
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("description", description);
+  formData.append("thumbnail", thumbnail);
+
+
+  const response = await fetch(`${url}/products`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao criar produto");
+  }
+
+  return await response.json();
 }
