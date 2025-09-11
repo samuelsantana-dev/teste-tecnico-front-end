@@ -1,6 +1,10 @@
+
 const url = "https://api-teste-front-production.up.railway.app";
-const token = localStorage.getItem("token");
+
+
 export async function getUnicProductsApi(id: string) {
+  const token = localStorage.getItem("token");
+
     const response = await fetch(`${url}/products/${id}`, {
         method: "GET",
         headers: { 
@@ -14,6 +18,8 @@ export async function getUnicProductsApi(id: string) {
     return data
 }
 export async function getProductsApi() {
+  const token = localStorage.getItem("token");
+
     const response = await fetch(`${url}/products`, {
         method: "GET",
         headers: { 
@@ -27,6 +33,8 @@ export async function getProductsApi() {
 }
 
 export async function deleteProductApi(id: string) {
+  const token = localStorage.getItem("token");
+
     await fetch(`${url}/products/${id}`,
         {
             method: "DELETE",
@@ -43,6 +51,8 @@ export async function createProductApi(
   description: string,
   thumbnail: File | null
 ) {
+  const token = localStorage.getItem("token");
+
   if (!thumbnail) throw new Error("Selecione uma imagem antes de enviar");
 
   const formData = new FormData();
@@ -71,6 +81,8 @@ export async function editProductApi(
   title: string,
   description: string
 ) {
+  const token = localStorage.getItem("token");
+
   const response = await fetch(`${url}/products/${id}`, {
     method: "PUT",
     headers: {
@@ -88,6 +100,8 @@ export async function editProductApi(
 }
 
 export async function updateProductThumbnailApi(id: string, thumbnail: File) {
+  const token = localStorage.getItem("token");
+
   const formData = new FormData();
   formData.append("thumbnail", thumbnail);
 
