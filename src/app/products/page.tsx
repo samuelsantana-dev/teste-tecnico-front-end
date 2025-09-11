@@ -14,7 +14,6 @@ export default function ProductsPage() {
     async function getProducts() {
       try {
         const responseApi = await getProductsApi();
-        console.log("🚀 ~ getProducts ~ responseApi:", responseApi.data);
         setProducts(responseApi.data);
       } catch (error) {
         console.error("Error fetching products:", error);

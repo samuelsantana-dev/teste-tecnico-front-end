@@ -1,6 +1,5 @@
 const url = "https://api-teste-front-production.up.railway.app";
 const token = localStorage.getItem("token");
-console.log("🚀 ~ token:", token)
 export async function getProductsApi() {
     const response = await fetch(`${url}/products`, {
         method: "GET",

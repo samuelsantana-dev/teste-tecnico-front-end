@@ -28,7 +28,6 @@ export default function CreateProduct() {
     try {
       setLoading(true);
 
-      console.log("🚀 ~ handleSubmit ~ title, description, thumbnail:", title, description, thumbnail)
       await createProductApi(title, description, thumbnail   );
       
       router.push("/products");
@@ -85,7 +84,7 @@ export default function CreateProduct() {
           disabled={loading}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition disabled:opacity-50"
         >
-          {loading ? "Entrando..." : "Entrar"}
+          {loading ? "Criando..." : "Criar produto"}
         </button>
       </form>
     </div>

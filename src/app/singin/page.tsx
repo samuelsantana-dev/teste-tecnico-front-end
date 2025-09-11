@@ -35,7 +35,6 @@ export default function RegisterPage() {
         number,
       },
     });
-    console.log("🚀 ~ handleSubmit ~ parsed:", parsed)
     if (!parsed.success) {
       setError({ form: parsed.error.issues[0].message });
       return;
