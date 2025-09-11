@@ -1,3 +1,3 @@
-export async function metrics() {
+export default async function metrics() {
     return <div>metrics</div>
 }
