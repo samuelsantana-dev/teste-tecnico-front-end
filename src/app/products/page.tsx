@@ -4,6 +4,7 @@ import { deleteProductApi, getProductsApi } from "@/services/api-products";
 import { useRouter } from "next/navigation";
 import { ItemList } from "@/utils/types";
 import { useEffect, useState } from "react";
+import { Loading } from "@/components/ui/Loading";
 
 export default function ProductsPage() {
   const router = useRouter();
@@ -41,18 +42,12 @@ export default function ProductsPage() {
   };
 
   const handleCreate = () => {
-    console.log("Creating new product");
     router.push("/products/create");
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Carregando produtos...</p>
-        </div>
-      </div>
+     <Loading />
     );
   }
 
@@ -67,7 +62,7 @@ export default function ProductsPage() {
             onClick={handleCreate}
             color="primary"
             size="md"
-            className="flex items-center"
+            className="flex items-center bg-blue-600 hover:bg-blue-700 text-white"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -143,7 +138,7 @@ export default function ProductsPage() {
                             onClick={() => handleEdit(product.id)}
                             color="secondary"
                             size="sm"
-                            className="flex items-center"
+                            className="flex items-center bg-yellow-500 hover:bg-yellow-600"
                           >
                             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -154,7 +149,7 @@ export default function ProductsPage() {
                             onClick={() => handleDelete(product.id)}
                             color="danger"
                             size="sm"
-                            className="flex items-center"
+                            className="flex items-center bg-red-600 hover:bg-red-700 text-white"
                           >
                             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

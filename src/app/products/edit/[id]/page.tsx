@@ -1,43 +1,67 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import InputText from "@/components/forms/InputText";
 // import { loginSchema } from "@/utils/validations";
-import { createProductApi } from "@/services/api-products";
+import { editProductApi, getUnicProductsApi, updateProductThumbnailApi } from "@/services/api-products";
 import { Loading } from "@/components/ui/Loading";
-export default function CreateProduct() {
+import { data } from './../../../../../node_modules/@formatjs/intl-localematcher/lib/abstract/languageMatching';
+import { productEditSchema } from "@/utils/validations";
+export default function EditProduct() {
   const router = useRouter();
-
+  const {id}= useParams<{id: string}>()
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [thumbnail, setThumbnail] = useState<File | null | any >(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
+  e.preventDefault();
+  setError(null);
 
-    // const parsed = loginSchema.safeParse({ title, description });
-    // if (!parsed.success) {
-    //   setError(parsed.error.issues[0].message);
-    //   return;
-    // }
-
-    try {
-      setLoading(true);
-
-      await createProductApi(title, description, thumbnail   );
-      
-      router.push("/products");
-    } catch (err: any) {
-      setError(err.message || "Erro ao fazer login");
-    } finally {
-      setLoading(false);
-    }
+  const parsed = productEditSchema.safeParse({ title, description });
+  if (!parsed.success) {
+    setError(parsed.error.issues[0].message);
+    return;
   }
+
+  try {
+    setLoading(true);
+
+    await editProductApi(id, title, description);
+
+    if (thumbnail) {
+      await updateProductThumbnailApi(id, thumbnail);
+    }
+
+    router.push("/products");
+  } catch (err: any) {
+    setError(err.message || "Erro ao editar produto");
+  } finally {
+    setLoading(false);
+  }
+}
+
+
+
+  useEffect(() => {
+    async function fetchProduct(){
+        try {
+            const responseProduct = await getUnicProductsApi(id);
+            console.log("🚀 ~ fetchProduct ~ responseProduct:", responseProduct)
+            setTitle(responseProduct.data.title);
+            setDescription(responseProduct.data.description);
+            setThumbnail(responseProduct.data.thumbnail);
+        } catch (error) {
+            console.error("Error fetching product:", error);
+        }
+    }
+
+    fetchProduct();
+  }, []);
 
    if (loading) {
       return (
@@ -51,7 +75,7 @@ export default function CreateProduct() {
         className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md w-full max-w-sm"
       >
         <h1 className="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-gray-100">
-          Criar um novo produto
+          Editar um produto
         </h1>
 
         {error && (
@@ -85,12 +109,17 @@ export default function CreateProduct() {
         onChange={(e) => setThumbnail(e.target.files ? e.target.files[0] : null)}
       />
 
+      {thumbnail && (
+        <img src={thumbnail.url || URL.createObjectURL(thumbnail)} alt="Preview" className="mb-4 rounded-lg" />
+      )}
+
+
         <button
           type="submit"
           disabled={loading}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition disabled:opacity-50"
         >
-          {loading ? "Criando..." : "Criar produto"}
+          {loading ? "Editando..." : "Editar produto"}
         </button>
       </form>
     </div>

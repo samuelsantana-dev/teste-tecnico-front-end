@@ -18,3 +18,14 @@ export const registerSchema = z.object({
   message: "As senhas não conferem",
   path: ["verifyPassword"],
 });
+
+export const productEditSchema = z.object({
+  title: z.string().min(3, "Título deve ter no mínimo 3 caracteres"),
+  description: z.string().min(5, "Descrição deve ter no mínimo 10 caracteres"),
+})
+
+export const productCreateSchema = z.object({
+  title: z.string().min(3, "Título deve ter no mínimo 3 caracteres"),
+  description: z.string().min(5, "Descrição deve ter no mínimo 10 caracteres"),
+  // thumbnail: z.instanceof(File, "Arquivo inválido").refine((file) => file.size <= 5 * 1024 * 1024, "O arquivo deve ser menor que 5MB"),
+})
