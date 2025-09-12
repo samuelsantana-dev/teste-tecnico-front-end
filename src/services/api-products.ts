@@ -1,49 +1,59 @@
-
 const url = "https://api-teste-front-production.up.railway.app";
 
-
 export async function getUnicProductsApi(id: string) {
-  const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
     const response = await fetch(`${url}/products/${id}`, {
-        method: "GET",
-        headers: { 
-            "Content-Type": "application/json", 
-            "Authorization": `Bearer ${token}` 
-        },
-    })
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await response.json();
-    console.log("🚀 ~ getUnicProductsApi ~ data:", data)
-    return data
+    return data;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    throw error;
+  }
 }
 export async function getProductsApi() {
-  const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
     const response = await fetch(`${url}/products`, {
-        method: "GET",
-        headers: { 
-            "Content-Type": "application/json", 
-            "Authorization": `Bearer ${token}` 
-        },
-    })
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await response.json();
-    return data
+    return data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
 }
 
 export async function deleteProductApi(id: string) {
-  const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
-    await fetch(`${url}/products/${id}`,
-        {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        }
-    )
+    await fetch(`${url}/products/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
 }
 
 export async function createProductApi(
@@ -51,29 +61,33 @@ export async function createProductApi(
   description: string,
   thumbnail: File | null
 ) {
-  const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
-  if (!thumbnail) throw new Error("Selecione uma imagem antes de enviar");
+    if (!thumbnail) throw new Error("Selecione uma imagem antes de enviar");
 
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("description", description);
-  formData.append("thumbnail", thumbnail);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("thumbnail", thumbnail);
 
+    const response = await fetch(`${url}/products`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
 
-  const response = await fetch(`${url}/products`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
+    if (!response.ok) {
+      throw new Error("Erro ao criar produto");
+    }
 
-  if (!response.ok) {
-    throw new Error("Erro ao criar produto");
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
   }
-
-  return await response.json();
 }
 
 export async function editProductApi(
@@ -81,42 +95,51 @@ export async function editProductApi(
   title: string,
   description: string
 ) {
-  const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
-  const response = await fetch(`${url}/products/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ title, description }),
-  });
+    const response = await fetch(`${url}/products/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ title, description }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Erro ao atualizar produto");
+    if (!response.ok) {
+      throw new Error("Erro ao atualizar produto");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
   }
-
-  return await response.json();
 }
 
 export async function updateProductThumbnailApi(id: string, thumbnail: File) {
-  const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
-  const formData = new FormData();
-  formData.append("thumbnail", thumbnail);
+    const formData = new FormData();
+    formData.append("thumbnail", thumbnail);
 
-  const response = await fetch(`${url}/products/thumbnail/${id}`, {
-    method: "PATCH",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
+    const response = await fetch(`${url}/products/thumbnail/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
 
-  if (!response.ok) {
-    throw new Error("Erro ao atualizar thumbnail");
+    if (!response.ok) {
+      throw new Error("Erro ao atualizar thumbnail");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
   }
-
-  return await response.json();
 }
-
