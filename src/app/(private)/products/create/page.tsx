@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import InputText from "@/components/forms/InputText";
-// import { loginSchema } from "@/utils/validations";
 import { createProductApi } from "@/services/api-products";
 import { Loading } from "@/components/ui/Loading";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -20,12 +19,6 @@ export default function CreateProduct() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-
-    // const parsed = loginSchema.safeParse({ title, description });
-    // if (!parsed.success) {
-    //   setError(parsed.error.issues[0].message);
-    //   return;
-    // }
 
     try {
       setLoading(true);

@@ -4,7 +4,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import InputText from "@/components/forms/InputText";
-// import { loginSchema } from "@/utils/validations";
 import { editProductApi, getUnicProductsApi, updateProductThumbnailApi } from "@/services/api-products";
 import { Loading } from "@/components/ui/Loading";
 import { productEditSchema } from "@/utils/validations";
