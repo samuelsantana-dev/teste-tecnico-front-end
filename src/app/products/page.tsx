@@ -37,7 +37,6 @@ export default function ProductsPage() {
   };
 
   const handleEdit = (id: string) => {
-    console.log("Editing product with id:", id);
     router.push(`/products/edit/${id}`);
   };
 

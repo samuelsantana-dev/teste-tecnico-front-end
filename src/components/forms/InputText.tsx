@@ -11,20 +11,28 @@ interface InputTextProps {
 
 export default function InputText({
   label = "Email",
-  placeholder = "Enter your email",
+  placeholder = "Digite seu email",
   type = "text",
   size = "md",
   value,
   onChange,
 }: InputTextProps) {
   return (
+    <>
+    <label htmlFor={label} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{label}</label>
     <Input
-      label={label}
+      id={label}
       placeholder={placeholder}
       type={type}
       size={size}
       value={value}
       onChange={onChange}
+      className="w-full mb-4"
+      classNames={{
+          inputWrapper: "bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg",
+          input: "focus:outline-none focus:ring-0",
+      }}
     />
+    </>
   );
 }

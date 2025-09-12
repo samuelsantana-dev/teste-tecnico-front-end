@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+  /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import InputText from "@/components/forms/InputText";
-import { set } from "zod";
 import { loginSchema } from "@/utils/validations";
 import { login } from "@/services/api-login";
 export default function LoginPage() {
@@ -13,16 +12,21 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+ const [error, setError] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError(null);
+    setError({});
 
     const parsed = loginSchema.safeParse({ email, password });
     if (!parsed.success) {
-      setError(parsed.error.issues[0].message);
+      const fieldErrors: Record<string, string> = {};
+      parsed.error.issues.forEach((issue) => {
+        const path = issue.path.join("."); 
+        fieldErrors[path] = issue.message;
+      });
+      setError(fieldErrors);
       return;
     }
 
@@ -50,11 +54,7 @@ export default function LoginPage() {
         <h1 className="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-gray-100">
           Login
         </h1>
-
-        {error && (
-          <p className="mb-3 text-sm text-red-500 text-center">{error}</p>
-        )}
-
+        {error.email && <p className="text-red-500 text-sm">{error.email}</p>}
         <InputText 
         label="E-mail"
         placeholder="Digite seu e-mail"
@@ -63,7 +63,7 @@ export default function LoginPage() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         />
-
+        {error.password && <p className="text-red-500 text-sm">{error.password}</p>}
         <InputText 
         label="Senha"
         placeholder="Digite sua senha"

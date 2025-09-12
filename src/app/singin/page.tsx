@@ -36,9 +36,15 @@ export default function RegisterPage() {
       },
     });
     if (!parsed.success) {
-      setError({ form: parsed.error.issues[0].message });
+      const fieldErrors: Record<string, string> = {};
+      parsed.error.issues.forEach((issue) => {
+        const path = issue.path.join("."); 
+        fieldErrors[path] = issue.message;
+      });
+      setError(fieldErrors);
       return;
     }
+
 
     try {
       setLoading(true);

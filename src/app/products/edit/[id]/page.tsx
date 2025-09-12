@@ -51,7 +51,6 @@ export default function EditProduct() {
     async function fetchProduct(){
         try {
             const responseProduct = await getUnicProductsApi(id);
-            console.log("🚀 ~ fetchProduct ~ responseProduct:", responseProduct)
             setTitle(responseProduct.data.title);
             setDescription(responseProduct.data.description);
             setThumbnail(responseProduct.data.thumbnail);
