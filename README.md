@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+:
 
-## Getting Started
+📦 Teste Técnico - CRUD de Produtos com Next.js
 
-First, run the development server:
+Este projeto foi desenvolvido como parte de um teste técnico, utilizando Next.js com autenticação baseada em token e gerenciamento de estado com Zustand.
 
-```bash
+Inclui um CRUD completo de produtos e um gráfico de métricas feito com Recharts.
+
+🚀 Tecnologias Utilizadas
+
+Next.js (com SSR e API Routes se necessário)
+
+React.js
+
+Zustand (para gerenciamento de estado global)
+
+Tailwind CSS (responsividade e dark mode 🌙)
+
+Hero UI (componentes de interface – diferencial)
+
+Zod (validação de formulários)
+
+Recharts 📊 (gráfico de métricas mockadas)
+
+🔐 Proteção de Rotas
+
+⚠️ Importante:
+A autenticação foi feita somente pelo front-end, utilizando localStorage para armazenar o token.
+
+A forma mais segura seria validar o token no servidor (via cookies e sessões), mas como não havia backend disponível, a solução foi feita inteiramente no front-end.
+
+Isso significa que:
+
+Para acessar as rotas autenticadas, o usuário precisa criar uma conta e pegar o token.
+
+O token é salvo no localStorage e validado em cada rota protegida.
+
+📌 Funcionalidades
+
+✅ CRUD de Produtos
+
+Criar produto (Título, Descrição, Thumbnail - upload/URL da imagem)
+
+Editar produto
+
+Deletar produto
+
+Listar produtos
+
+✅ Validação com Zod (impede campos inválidos)
+
+✅ Rotas autenticadas (necessário token para acessar)
+
+✅ Gráfico de métricas com Recharts (dados fictícios/mockados)
+
+✅ Responsividade e Dark Mode com Tailwind CSS
+
+📂 Estrutura do Projeto
+src/
+ ├── app/              # Páginas do Next.js
+ ├── components/       # Componentes reutilizáveis (UI, formulários, etc.)
+ ├── stores/           # Stores do Zustand (estado global)
+ ├── services/         # Serviços (API calls)
+ ├── utils/            # Schemas, validações (Zod), helpers
+
+🛠️ Como Rodar o Projeto
+1. Clone o repositório
+git clone https://github.com/seu-usuario/teste-tecnico.git
+cd teste-tecnico
+
+2. Instale as dependências
+npm install
+# ou
+yarn install
+# ou
+pnpm install
+# ou
+bun install
+
+3. Configure variáveis de ambiente
+
+Crie um arquivo .env.local na raiz do projeto com as variáveis necessárias, por exemplo:
+
+NEXT_PUBLIC_API_URL=https://sua-api.com
+
+4. Rode o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Abra http://localhost:3000
+ no navegador.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🌍 Deploy
 
-## Learn More
+O projeto pode ser facilmente publicado na Vercel (plataforma oficial do Next.js).
+👉 Documentação de Deploy
 
-To learn more about Next.js, take a look at the following resources:
+📊 Demonstração de Métricas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Um gráfico foi implementado utilizando Recharts com dados fictícios, representando métricas do sistema:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Total de produtos criados
 
-## Deploy on Vercel
+Produtos deletados
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Outras estatísticas mockadas
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✅ Diferenciais Implementados
+
+Gerenciamento de estado global com Zustand
+
+Hero UI para UI moderna
+
+Dark Mode
+
+Código organizado em componentes, stores, contextos e páginas
+
+Boas práticas de estruturação e validação de formulários
+
+✍️ Desenvolvido por Samuel Santana
