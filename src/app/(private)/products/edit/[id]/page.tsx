@@ -7,7 +7,6 @@ import InputText from "@/components/forms/InputText";
 // import { loginSchema } from "@/utils/validations";
 import { editProductApi, getUnicProductsApi, updateProductThumbnailApi } from "@/services/api-products";
 import { Loading } from "@/components/ui/Loading";
-import { data } from './../../../../../node_modules/@formatjs/intl-localematcher/lib/abstract/languageMatching';
 import { productEditSchema } from "@/utils/validations";
 export default function EditProduct() {
   const router = useRouter();
