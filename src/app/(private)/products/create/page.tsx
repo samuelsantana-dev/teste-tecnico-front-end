@@ -7,6 +7,7 @@ import InputText from "@/components/forms/InputText";
 // import { loginSchema } from "@/utils/validations";
 import { createProductApi } from "@/services/api-products";
 import { Loading } from "@/components/ui/Loading";
+import ProtectedRoute from "@/components/ProtectedRoute";
 export default function CreateProduct() {
   const router = useRouter();
 
@@ -45,6 +46,7 @@ export default function CreateProduct() {
       );
     }
   return (
+    <ProtectedRoute>
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <form
         onSubmit={handleSubmit}
@@ -94,5 +96,6 @@ export default function CreateProduct() {
         </button>
       </form>
     </div>
+    </ProtectedRoute>
   );
 }

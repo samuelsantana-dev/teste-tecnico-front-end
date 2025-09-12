@@ -1,4 +1,5 @@
 "use client";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import {
   BarChart,
   Bar,
@@ -25,8 +26,9 @@ const data = [
 ];
 
 
-export default async function metrics() {
+export default function metrics() {
   return (
+    <ProtectedRoute>
     <div className="w-full h-screen p-4 bg-white dark:bg-gray-900 rounded-2xl shadow-md">
       <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
         Produtos Criados por Mês
@@ -41,5 +43,6 @@ export default async function metrics() {
         </BarChart>
       </ResponsiveContainer>
     </div>
+    </ProtectedRoute>
   );
 }

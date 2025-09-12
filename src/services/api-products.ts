@@ -1,4 +1,5 @@
-const url = "https://api-teste-front-production.up.railway.app";
+import { url } from "@/utils/validations";
+
 
 export async function getUnicProductsApi(id: string) {
   try {

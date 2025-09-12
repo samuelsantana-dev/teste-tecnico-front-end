@@ -8,6 +8,7 @@ import InputText from "@/components/forms/InputText";
 import { editProductApi, getUnicProductsApi, updateProductThumbnailApi } from "@/services/api-products";
 import { Loading } from "@/components/ui/Loading";
 import { productEditSchema } from "@/utils/validations";
+import ProtectedRoute from "@/components/ProtectedRoute";
 export default function EditProduct() {
   const router = useRouter();
   const {id}= useParams<{id: string}>()
@@ -67,6 +68,7 @@ export default function EditProduct() {
       );
     }
   return (
+    <ProtectedRoute>
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <form
         onSubmit={handleSubmit}
@@ -121,5 +123,6 @@ export default function EditProduct() {
         </button>
       </form>
     </div>
+    </ProtectedRoute>
   );
 }
