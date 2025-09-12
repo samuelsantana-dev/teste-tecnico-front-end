@@ -13,7 +13,9 @@ export default function EditProduct() {
   const {id}= useParams<{id: string}>()
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState<File | null | any >(null);
+ const [thumbnail, setThumbnail] = useState<File | null | any>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +54,7 @@ export default function EditProduct() {
             const responseProduct = await getUnicProductsApi(id);
             setTitle(responseProduct.data.title);
             setDescription(responseProduct.data.description);
-            setThumbnail(responseProduct.data.thumbnail);
+            setPreview(responseProduct.data.thumbnail.url);
         } catch (error) {
             console.error("Error fetching product:", error);
         }
@@ -108,10 +110,13 @@ export default function EditProduct() {
         onChange={(e) => setThumbnail(e.target.files ? e.target.files[0] : null)}
       />
 
-      {thumbnail && (
-        <img src={thumbnail.url || URL.createObjectURL(thumbnail)} alt="Preview" className="mb-4 rounded-lg" />
-      )}
-
+     {preview && (
+      <img
+        src={thumbnail ? URL.createObjectURL(thumbnail) : preview}
+        alt="Preview"
+        className="mb-4 rounded-lg"
+      />
+    )}
 
         <button
           type="submit"
