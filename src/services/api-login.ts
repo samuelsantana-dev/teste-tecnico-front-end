@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 const url = "https://api-teste-front-production.up.railway.app";
 
 export async function registerUser(user: {
@@ -23,6 +25,8 @@ export async function registerUser(user: {
 
   const data = await response.json();
   localStorage.setItem("token", data.token);
+  const res = NextResponse.json({ success: true });
+  res.cookies.set("token", data.token, { httpOnly: true, path: "/" });
   return data;
 }
 export async function login(email: string, password: string) {
@@ -38,5 +42,7 @@ export async function login(email: string, password: string) {
 
   const data = await response.json();
   localStorage.setItem("token", data.token);
+  const res = NextResponse.json({ success: true });
+  res.cookies.set("token", data.token, { httpOnly: true, path: "/" });
   return data;
 }
