@@ -97,10 +97,10 @@ export default function Navbar() {
             ))}
             
             <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
-              <div className="mt-3 px-2 space-y-1">
-                <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-300">Samuel Santana da Silva</a>
-                <a href="https://www.linkedin.com/in/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300">Linkedin</a>
-                <a href="https://github.com/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300">GitHub</a>
+              <div className="mt-3 px-2 space-y-1 flex flex-col">
+                <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>Samuel Santana da Silva</a>
+                <a href="https://www.linkedin.com/in/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>Linkedin</a>
+                <a href="https://github.com/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>GitHub</a>
               </div>
             </div>
           </div>

@@ -65,7 +65,7 @@ src/
 
 🛠️ Como Rodar o Projeto
 1. Clone o repositório
-git clone https://github.com/seu-usuario/teste-tecnico.git
+git clone https://github.com/samuelsantana-dev/teste-tecnico.git
 cd teste-tecnico
 
 2. Instale as dependências
@@ -77,13 +77,7 @@ pnpm install
 # ou
 bun install
 
-3. Configure variáveis de ambiente
-
-Crie um arquivo .env.local na raiz do projeto com as variáveis necessárias, por exemplo:
-
-NEXT_PUBLIC_API_URL=https://sua-api.com
-
-4. Rode o servidor de desenvolvimento
+3. Rode o servidor de desenvolvimento
 npm run dev
 
 
@@ -94,6 +88,9 @@ Abra http://localhost:3000
 
 O projeto pode ser facilmente publicado na Vercel (plataforma oficial do Next.js).
 👉 Documentação de Deploy
+
+O projeto está publicado na Vercel e pode ser acessado pelo link abaixo:
+https://teste-tecnico-front-end-7flh.vercel.app/
 
 📊 Demonstração de Métricas
 
@@ -110,8 +107,6 @@ Outras estatísticas mockadas
 Gerenciamento de estado global com Zustand
 
 Hero UI para UI moderna
-
-Dark Mode
 
 Código organizado em componentes, stores, contextos e páginas
 
