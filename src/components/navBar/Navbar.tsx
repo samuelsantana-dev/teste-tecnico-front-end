@@ -3,15 +3,19 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import LogoutButton from '../logoutButton';
+import { userStore } from '@/store/authStore';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-
+  const user = userStore((state) => state.user);
   const navigation = [
-    { name: 'Início', href: '/' },
     { name: 'Dashboard', href: '/products' },
     { name: 'Relatórios', href: '/metrics' },
+  ];
+  const authNavigation = [
+    { name: 'Início', href: '/' },
     { name: 'Cadastre-se', href: '/singin' },
     { name: 'Login', href: '/login' },
   ];
@@ -34,28 +38,66 @@ export default function Navbar() {
               </span>
             </div>
 
-            <div className="hidden md:ml-8 md:flex md:items-center md:space-x-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    pathname === item.href
-                      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
-                      : 'text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
+            {user.token !== null ? (
+              <div className="hidden md:ml-8 md:flex md:items-center md:space-x-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      pathname === item.href
+                        ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                        : "text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+
+                <LogoutButton />
+              </div>
+            ) : (
+              <div className="hidden md:ml-8 md:flex md:items-center md:space-x-4">
+                {authNavigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      pathname === item.href
+                        ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                        : "text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center">
             <div className="hidden md:flex items-center space-x-3">
-              <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>Samuel Santana da Silva</a>
-                <a href="https://www.linkedin.com/in/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>Linkedin</a>
-                <a href="https://github.com/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>GitHub</a>
+              <a
+                href="#"
+                className="text-gray-600 hover:text-blue-600 dark:text-gray-300"
+                target="_blank"
+              >
+                Samuel Santana da Silva
+              </a>
+              <a
+                href="https://www.linkedin.com/in/samuelsantana-dev"
+                className="text-gray-600 hover:text-blue-600 dark:text-gray-300"
+                target="_blank"
+              >
+                Linkedin
+              </a>
+              <a
+                href="https://github.com/samuelsantana-dev"
+                className="text-gray-600 hover:text-blue-600 dark:text-gray-300"
+                target="_blank"
+              >
+                GitHub
+              </a>
             </div>
 
             <div className="md:hidden flex items-center">
@@ -64,12 +106,34 @@ export default function Navbar() {
                 className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {!isMenuOpen ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
                   </svg>
                 ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 )}
               </button>
@@ -87,22 +151,41 @@ export default function Navbar() {
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                   pathname === item.href
-                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800'
+                    ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                    : "text-gray-600 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
-            
+
             <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
               <div className="mt-3 px-2 space-y-1 flex flex-col">
-                <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>Samuel Santana da Silva</a>
-                <a href="https://www.linkedin.com/in/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>Linkedin</a>
-                <a href="https://github.com/samuelsantana-dev" className="text-gray-600 hover:text-blue-600 dark:text-gray-300" target='_blank'>GitHub</a>
+                <a
+                  href="#"
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300"
+                  target="_blank"
+                >
+                  Samuel Santana da Silva
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/samuelsantana-dev"
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300"
+                  target="_blank"
+                >
+                  Linkedin
+                </a>
+                <a
+                  href="https://github.com/samuelsantana-dev"
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300"
+                  target="_blank"
+                >
+                  GitHub
+                </a>
               </div>
             </div>
+            <LogoutButton />
           </div>
         </div>
       )}
