@@ -44,3 +44,11 @@ export interface Phone {
   ddd: string;
   number: string;
 }
+
+export interface AuthStore {
+  user: User | null;
+  phone: Phone | null;
+  token: string | null;
+  setAuth: (user: User, token: string) => void;
+  clearAuth: () => void;
+}
