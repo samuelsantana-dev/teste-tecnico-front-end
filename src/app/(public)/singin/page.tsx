@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import InputText from "@/components/forms/InputText";
 import {  registerSchema } from "@/utils/validations";
 import {  registerUser } from "@/services/api-login";
+import { userStore } from "@/store/authStore";
 export default function RegisterPage() {
   const router = useRouter();
-  // const { setToken } = useAuthStore();
-
+  const setUser = userStore((state) => state.setUser);
    const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,10 +49,13 @@ export default function RegisterPage() {
     try {
       setLoading(true);
 
-      await registerUser(parsed.data);
-      
-    //   setToken(data.access_token);
+      const response = await registerUser(parsed.data);
+      console.log("🚀 ~ handleSubmit ~ response:", response)
 
+      setUser({
+        token: response.token,
+      })
+      
       router.push("/products");
     } catch (err: any) {
       setError(err.message || "Erro ao fazer cadastro");

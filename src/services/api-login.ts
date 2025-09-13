@@ -11,32 +11,40 @@ export async function registerUser(user: {
     number: string;
   };
 }) {
-  const response = await fetch(`${url}/users`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  });
+  try {
+    const response = await fetch(`${url}/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    });
 
-  if (!response.ok) {
-    throw new Error("Credenciais inválidas");
-   }
+    if (!response.ok) {
+      throw new Error("Credenciais inválidas");
+    }
 
-  const data = await response.json();
-  localStorage.setItem("token", data.token);
-  return data;
+    const data = await response.json();
+    localStorage.setItem("token", data.token);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }
 export async function login(email: string, password: string) {
-  const response = await fetch(`${url}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
+  try {
+    const response = await fetch(`${url}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Credenciais inválidas");
-   }
+    if (!response.ok) {
+      throw new Error("Credenciais inválidas");
+    }
 
-  const data = await response.json();
-  localStorage.setItem("token", data.token);
-  return data;
+    const data = await response.json();
+    localStorage.setItem("token", data.token);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }

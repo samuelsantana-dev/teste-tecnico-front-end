@@ -23,7 +23,7 @@ export default function Navbar() {
   const profileLinks = [
     { id: 1, text: 'Linkedin', links: 'https://www.linkedin.com/in/samuelsantana-dev' },
     { id: 2, text: 'GitHub', links: 'https://github.com/samuelsantana-dev' },
-    { id: 3, text: 'Portfólio', links: 'https://samuelsantana-dev.vercel.app/' },
+    { id: 3, text: 'Portfólio', links: 'http://samuelfront.mundodesucesso.tech/' },
   ]
 
   const toggleMenu = () => {

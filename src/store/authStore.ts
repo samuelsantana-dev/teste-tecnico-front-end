@@ -3,9 +3,9 @@ import { persist } from "zustand/middleware";
 
 type User = {
   token: string | null;
-  name: string | null;
-  email: string | null;
-  phone: string | null;
+  name?: string | null;
+  email?: string | null;
+  phone?: string | null;
 };
 
 type UserStore = {
