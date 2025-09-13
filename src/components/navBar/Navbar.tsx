@@ -21,9 +21,9 @@ export default function Navbar() {
     { name: 'Login', href: '/login' },
   ];
   const profileLinks = [
-    { id: 1, text: 'Linkedin', links: 'https://www.linkedin.com/in/samuelsantana-dev' },
-    { id: 2, text: 'GitHub', links: 'https://github.com/samuelsantana-dev' },
-    { id: 3, text: 'Portfólio', links: 'http://samuelfront.mundodesucesso.tech/' },
+    { id: 1, text: 'Linkedin', href: 'https://www.linkedin.com/in/samuelsantana-dev' },
+    { id: 2, text: 'GitHub', href: 'https://github.com/samuelsantana-dev' },
+    { id: 3, text: 'Portfólio', href: 'http://samuelfront.mundodesucesso.tech/' },
   ]
 
   const toggleMenu = () => {
@@ -86,7 +86,7 @@ export default function Navbar() {
               {profileLinks.map((item, index) => (
                 <UserProfileLinks
                   key={index}
-                  href={item.links}
+                  href={item.href}
                   text={item.text}
                 />
               ))}
@@ -176,7 +176,7 @@ export default function Navbar() {
               {profileLinks.map((item, index) => (
                 <UserProfileLinks
                   key={index}
-                  href={item.links}
+                  href={item.href}
                   text={item.text}
                 />
               ))}
