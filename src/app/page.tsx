@@ -1,12 +1,17 @@
+"use client"
+import { userStore } from "@/store/authStore";
 import Link from "next/link";
 
 export default function Home() {
+  const user = userStore((state) => state.user);
+
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
 
       <section className="container mx-auto px-4 py-16 md:py-24 flex flex-col items-center text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-6">
-          Bem-vindo ao <span className="text-blue-600">TechTest</span>
+         <h1 className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-6">
+           Bem-vindo <span className="text-blue-600">{user.name ? user.name : 'ao TechTest'}</span>
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10">
           Sistema desenvolvido como parte do processo técnico. Explore as funcionalidades disponíveis abaixo.

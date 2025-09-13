@@ -6,14 +6,15 @@ import { useRouter } from "next/navigation";
 import InputText from "@/components/forms/InputText";
 import { loginSchema } from "@/utils/validations";
 import { login } from "@/services/api-login";
+import { userStore } from "@/store/authStore";
 export default function LoginPage() {
   const router = useRouter();
-  // const { setToken } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- const [error, setError] = useState<Record<string, string>>({});
+  const [error, setError] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const setUser = userStore((state) => state.setUser);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,9 +34,14 @@ export default function LoginPage() {
     try {
       setLoading(true);
 
-      await login(email, password);
+      const response = await login(email, password);
       
-    //   setToken(data.access_token);
+      setUser({
+        token: response.token,
+        name: response.user.name,
+        email: response.user.email,
+        phone: response.user.phone
+      })
 
       router.push("/products");
     } catch (err: any) {
