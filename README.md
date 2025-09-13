@@ -7,6 +7,11 @@ Validação de senha
 Ao criar um usuário, a senha deve atender aos seguintes critérios: conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial. Essa regra garante maior segurança à aplicação.
 ⚠️ Por isso, é recomendável criar um novo usuário e realizar um login atualizado para acessar todas as funcionalidades corretamente.
 
+Caso queira pode user esse:
+samuelsantana@gmail.com
+saAS12$
+
+A imagem não vem na rota de https://api-teste-front-production.up.railway.app /products entao não foi possivel renderizar na tabela a imagem.
 
 🚀 Tecnologias Utilizadas
 
